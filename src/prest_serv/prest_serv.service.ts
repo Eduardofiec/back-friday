@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePrestServDto } from './dto/create-prest_serv.dto';
 import { UpdatePrestServDto } from './dto/update-prest_serv.dto';
-import { AppDataSource } from '../../../src/data-source';
-import { prest_serv} from '../../../src/entity/prest_serv';
+import { AppDataSource } from '../database/data-source';
+import { prest_serv} from '../database/entity/prest_serv';
 
 
 

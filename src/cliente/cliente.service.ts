@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { AppDataSource } from '../../../src/data-source';
+import { AppDataSource } from '../database/data-source';
 import { CreateClienteDto } from './dto/create-cliente.dto';
 import { UpdateClienteDto } from './dto/update-cliente.dto';
-import { cliente } from '../../../src/entity/cliente';
+import { cliente } from '../database/entity/cliente';
 
 
 @Injectable()

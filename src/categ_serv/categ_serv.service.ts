@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCategServDto } from './dto/create-categ_serv.dto';
 import { UpdateCategServDto } from './dto/update-categ_serv.dto';
-import {AppDataSource} from '../../../src/data-source'
+import {AppDataSource} from '../database/data-source'
 
 
 @Injectable()
