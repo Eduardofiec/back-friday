@@ -1,26 +1,37 @@
 import { Injectable } from '@nestjs/common';
+import { AppDataSource } from '../database/data-source';
+import { acessa } from '../database/entity/acessa';
 import { CreateAcessaDto } from './dto/create-acessa.dto';
 import { UpdateAcessaDto } from './dto/update-acessa.dto';
 
 @Injectable()
 export class AcessaService {
-  create(createAcessaDto: CreateAcessaDto) {
-    return 'This action adds a new acessa';
+  repo=AppDataSource.getRepository(acessa)
+  async create(createAcessaDto: CreateAcessaDto) {
+    let create = createAcessaDto;
+    return await this.repo.save(create);
   }
 
-  findAll() {
-    return `This action returns all acessa`;
+  async findAll() {
+    return await this.repo.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} acessa`;
+  async findOne(id: number) {
+    return await this.repo.findBy({
+      id_acessa:id
+    });
   }
 
-  update(id: number, updateAcessaDto: UpdateAcessaDto) {
-    return `This action updates a #${id} acessa`;
+  async update(id: number, updateAcessaDto: UpdateAcessaDto) {
+    let update=updateAcessaDto;
+    update.id_acessa=id;
+    return this.repo.save(update)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} acessa`;
+  async remove(id: number) {
+    let remove = await this.repo.findOneBy({
+      id_acessa:id
+    })
+    return await this.repo.remove(remove);
   }
 }

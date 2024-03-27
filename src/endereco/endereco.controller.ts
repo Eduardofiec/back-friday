@@ -14,7 +14,7 @@ export class EnderecoController {
 
   @Get()
   findAll() {
-    return this.enderecoService.findAll();
+    
   }
 
   @Get(':id')

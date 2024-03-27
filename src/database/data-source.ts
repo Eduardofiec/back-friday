@@ -19,7 +19,7 @@ export const AppDataSource = new DataSource({
     database: "teste_for",
     synchronize: true,
     logging: false,
-    entities: [prest_serv, cliente],
+    entities: [prest_serv, cliente,post,acessa,agenda,categ_serv,endereco],
     migrations: [],
     subscribers: [],
 })

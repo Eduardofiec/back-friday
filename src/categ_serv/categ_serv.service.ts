@@ -2,27 +2,36 @@ import { Injectable } from '@nestjs/common';
 import { CreateCategServDto } from './dto/create-categ_serv.dto';
 import { UpdateCategServDto } from './dto/update-categ_serv.dto';
 import {AppDataSource} from '../database/data-source'
-
+import { categ_serv } from '../database/entity/categ_serv';
 
 @Injectable()
 export class CategServService {
-  create(createCategServDto: CreateCategServDto) {
-    return 'This action adds a new categServ';
+  repo=AppDataSource.getRepository(categ_serv);
+  async create(createCategServDto: CreateCategServDto) {
+    let create = createCategServDto;
+    return await this.repo.save(create);
   }
 
-  findAll() {
-    return `This action returns all categServ`;
+  async findAll() {
+    return await this.repo.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} categServ`;
+  async findOne(id: number) {
+    return await this.repo.findBy({
+      id_serv:id
+    });
   }
 
-  update(id: number, updateCategServDto: UpdateCategServDto) {
-    return `This action updates a #${id} categServ`;
+  async update(id: number, updateCategServDto: UpdateCategServDto) {
+    let update=updateCategServDto;
+    update.id_serv=id;
+    return this.repo.save(update)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} categServ`;
+  async remove(id: number) {
+    let remove = await this.repo.findOneBy({
+      id_serv:id
+    })
+    return await this.repo.remove(remove);
   }
 }

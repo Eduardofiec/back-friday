@@ -1,26 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { AppDataSource } from '../database/data-source';
+import { post } from '../database/entity/post';
 
 @Injectable()
 export class PostService {
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post';
+  repo=AppDataSource.getRepository(post)
+  async create(createPostDto: CreatePostDto) {
+    let create = createPostDto;
+    return await this.repo.save(create);
   }
 
-  findAll() {
-    return `This action returns all post`;
+  async findAll() {
+    return await this.repo.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  async findOne(id: number) {
+    return await this.repo.findBy({
+      id_post:id
+    });
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
+  async update(id: number, updatePostDto: UpdatePostDto) {
+    let update=updatePostDto;
+    update.id_post=id;
+    return this.repo.save(update)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async remove(id: number) {
+    let remove = await this.repo.findOneBy({
+      id_post:id
+    })
+    return await this.repo.remove(remove);
   }
 }

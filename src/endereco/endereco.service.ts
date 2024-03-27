@@ -1,26 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { CreateEnderecoDto } from './dto/create-endereco.dto';
 import { UpdateEnderecoDto } from './dto/update-endereco.dto';
+import { AppDataSource } from '../database/data-source';
+import { endereco } from '../database/entity/endereco';
 
 @Injectable()
 export class EnderecoService {
-  create(createEnderecoDto: CreateEnderecoDto) {
-    return 'This action adds a new endereco';
+  repo=AppDataSource.getRepository(endereco)
+  async create(createEnderecoDto: CreateEnderecoDto) {
+    let create = createEnderecoDto;
+    return await this.repo.save(create);
   }
 
-  findAll() {
-    return `This action returns all endereco`;
+  async findAll() {
+    return await this.repo.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} endereco`;
+  async findOne(id: number) {
+    return  await `This action returns a #${id} endereco`;
   }
 
-  update(id: number, updateEnderecoDto: UpdateEnderecoDto) {
-    return `This action updates a #${id} endereco`;
+  async update(id: number, updateEnderecoDto: UpdateEnderecoDto) {
+    let update=updateEnderecoDto;
+    update.id_endereco=id;
+    return this.repo.save(update)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} endereco`;
+  async remove(id: number) {
+    let remove = await this.repo.findOneBy({
+      id_endereco:id
+    })
+    return await this.repo.remove(remove);
   }
 }

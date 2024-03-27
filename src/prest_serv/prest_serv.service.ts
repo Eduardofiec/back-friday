@@ -17,7 +17,7 @@ export class PrestServService {
   }
 
   async findAll() {
-    return this.repo.find();
+    return await this.repo.find();
   }
 
   findOne(id: number) {

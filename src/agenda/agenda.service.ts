@@ -1,26 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAgendaDto } from './dto/create-agenda.dto';
 import { UpdateAgendaDto } from './dto/update-agenda.dto';
+import { AppDataSource } from '../database/data-source';
+import { agenda } from '../database/entity/agenda';
 
 @Injectable()
 export class AgendaService {
-  create(createAgendaDto: CreateAgendaDto) {
-    return 'This action adds a new agenda';
+  repo=AppDataSource.getRepository(agenda)
+  async create(createAgendaDto: CreateAgendaDto) {
+    let create = createAgendaDto;
+    return await this.repo.save(create);
   }
 
-  findAll() {
-    return `This action returns all agenda`;
+  async findAll() {
+    return await this.repo.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} agenda`;
+  async findOne(id: number) {
+    return await this.repo.findBy({
+      id_agenda:id
+    });
   }
 
-  update(id: number, updateAgendaDto: UpdateAgendaDto) {
-    return `This action updates a #${id} agenda`;
+  async update(id: number, updateAgendaDto: UpdateAgendaDto) {
+    let update=updateAgendaDto;
+    update.id_agenda=id;
+    return this.repo.save(update)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} agenda`;
+  async remove(id: number) {
+    let remove = await this.repo.findOneBy({
+      id_agenda:id
+    })
+    return await this.repo.remove(remove);
   }
 }

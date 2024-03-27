@@ -13,8 +13,6 @@ export class acessa {
     hora: Date
 
     @Column()
-    ende: boolean
-
-
-
+    endereco_mac: boolean
+    
 }
