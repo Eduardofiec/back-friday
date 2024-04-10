@@ -32,6 +32,6 @@ export class CategServService {
     let remove = await this.repo.findOneBy({
       id_serv:id
     })
-    return await this.repo.remove(remove);
+    return this.repo.remove(remove);
   }
 }

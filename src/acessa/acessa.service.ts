@@ -32,6 +32,6 @@ export class AcessaService {
     let remove = await this.repo.findOneBy({
       id_acessa:id
     })
-    return await this.repo.remove(remove);
+    return this.repo.remove(remove);
   }
 }

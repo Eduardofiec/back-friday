@@ -20,22 +20,22 @@ export class PrestServService {
     return await this.repo.find();
   }
 
-  findOne(id: number) {
-    return this.repo.findBy({
+  async findOne(id: number) {
+    return await this.repo.findBy({
       id_prest:id
     });
   }
 
-  update(id: number, updatePrestServDto: UpdatePrestServDto) {
+  async update(id: number, updatePrestServDto: UpdatePrestServDto) {
     let update=updatePrestServDto;
     update.id_prest=id;
-    return this.repo.save(update)
+    return await this.repo.save(update)
   }
 
   async remove(id: number) {
     let remove=await this.repo.findOneBy({
       id_prest:id
     });
-    this.repo.remove(remove)
+    return this.repo.remove(remove)
   }
 }

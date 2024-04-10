@@ -17,7 +17,9 @@ export class EnderecoService {
   }
 
   async findOne(id: number) {
-    return  await `This action returns a #${id} endereco`;
+    return  await this.repo.findBy({
+      id_endereco:id
+    })
   }
 
   async update(id: number, updateEnderecoDto: UpdateEnderecoDto) {
@@ -30,6 +32,6 @@ export class EnderecoService {
     let remove = await this.repo.findOneBy({
       id_endereco:id
     })
-    return await this.repo.remove(remove);
+    return this.repo.remove(remove);
   }
 }

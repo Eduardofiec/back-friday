@@ -10,7 +10,7 @@ export class post {
     cod_img: string
 
     @Column()
-    curtidas: string
+    curtidas: number
 
     @Column()
     comentarios: string

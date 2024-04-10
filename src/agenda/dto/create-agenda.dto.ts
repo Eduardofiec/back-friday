@@ -1,5 +1,14 @@
+import { 
+    IsDate
+} from 'class-validator';
+
+
+import { Type } from 'class-transformer';
+
 export class CreateAgendaDto {
     id_agenda: number
+    @IsDate()
+    @Type(() => Date)
     data: Date
     hora: Date
     disponivel_s_n: boolean
